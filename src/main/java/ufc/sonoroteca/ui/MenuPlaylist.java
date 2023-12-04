@@ -1,11 +1,12 @@
 package ufc.sonoroteca.ui;
 
+import java.awt.GridLayout;
+import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.util.List;
-import java.awt.GridLayout;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -213,7 +214,8 @@ public class MenuPlaylist {
         List<Playlist> todasPlaylists = playlistDAO.findAll();
 
         if (todasMusicas.isEmpty() || todasPlaylists.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Não há músicas ou playlists disponíveis. Cadastre músicas e playlists antes de continuar.");
+            JOptionPane.showMessageDialog(null,
+                    "Não há músicas ou playlists disponíveis. Cadastre músicas e playlists antes de continuar.");
             return;
         }
 
@@ -256,7 +258,8 @@ public class MenuPlaylist {
 
         // Verificar se há usuários para escolher
         if (usuarios.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum usuário cadastrado. Cadastre um usuário antes de criar uma playlist.");
+            JOptionPane.showMessageDialog(null,
+                    "Nenhum usuário cadastrado. Cadastre um usuário antes de criar uma playlist.");
             return;
         }
 

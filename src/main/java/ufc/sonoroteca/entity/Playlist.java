@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Playlist {
     @JoinColumn(name = "usuario_id", nullable = false) // não pode ser nulo
     private Usuario usuario;
 
-    @ManyToMany // uma playlist pode ter várias músicas
+    @ManyToMany(cascade = CascadeType.ALL) // uma playlist pode ter várias músicas
     @JoinTable(name = "playlist_musica", joinColumns = @JoinColumn(name = "playlist_id"), inverseJoinColumns = @JoinColumn(name = "musica_id"))
     private List<Musica> musicas; // lista de músicas da playlist
 

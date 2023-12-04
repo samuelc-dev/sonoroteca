@@ -13,21 +13,19 @@ import ufc.sonoroteca.entity.Usuario;
 @Repository
 public interface PlaylistMongoDAO extends PlaylistDAO, MongoRepository<Playlist, String> {
 
-    Playlist findFirstById(String playlistID);
+  Playlist findFirstById(String playlistID);
 
-    @Query("{ 'usuario.id' : ?0 }")
-    List<Playlist> findByUsuarioId(String idUser);
+  @Query("{ 'usuario.id' : ?0 }")
+  List<Playlist> findByUsuarioId(String idUser);
 
-    @Query("{ 'nomePlay' : ?0 }")
-    List<Playlist> findByNomePlay(String nomePlay);
+  @Query("{ 'nomePlay' : ?0 }")
+  List<Playlist> findByNomePlay(String nomePlay);
 
-      // faça uma consulta que liste todas as playlists da tabela com jpa
-    public List<Playlist> findAll();
+  // faça uma consulta que liste todas as playlists da tabela com jpa
+  public List<Playlist> findAll();
 
-    List<Playlist> findByUsuario(Usuario usuario);
+  List<Playlist> findByUsuario(Usuario usuario);
 
-    @Query("{$match: {id: ?0}}, {$lookup: { from: 'musicas', localField: 'id', foreignField: 'playlistId', as: 'musicas' }}")
-    Playlist findByIdWithMusics(String playlistId); 
+  // List<Playlist> findAllCantor();
 
-    
 }

@@ -1,11 +1,13 @@
 package ufc.sonoroteca.ui;
 
+import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class MenuMusica {
     }
 
     // Método para exibir a JComboBox de gêneros musicais
-    private String escolherGenero(List <String> generosMusicais) {
+    private String escolherGenero(List<String> generosMusicais) {
         JComboBox<String> generoComboBox = new JComboBox<>(generosMusicais.toArray(new String[0]));
         JPanel panel = new JPanel();
         panel.add(new JLabel("Escolha o gênero:"));
@@ -129,6 +131,7 @@ public class MenuMusica {
                         id = JOptionPane.showInputDialog("Digite o ID da música a ser exibida");
                         musica = musicaDAO.findById(id).orElse(null);
                         if (musica != null) {
+                            Hibernate.initialize(musica.getPlaylists());
                             listaMusica(musica);
                         } else {
                             JOptionPane.showMessageDialog(null, "Música não encontrada.");
@@ -143,7 +146,8 @@ public class MenuMusica {
                                 if (!musicasPorGenero.isEmpty()) {
                                     listaMusicas(musicasPorGenero);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "Nenhuma música encontrada para o gênero selecionado.");
+                                    JOptionPane.showMessageDialog(null,
+                                            "Nenhuma música encontrada para o gênero selecionado.");
                                 }
                             }
                         } else {
@@ -158,7 +162,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhuma música encontrada.");
                         }
                         break;
-                    case "7":
+                    case "7": // Exibir todas músicas de determinado cantor
                         List<String> todosCantores = musicaDAO.findAllCantores();
                         if (!todosCantores.isEmpty()) {
                             String cantorEscolhido = escolherCantor(todosCantores);
@@ -167,7 +171,8 @@ public class MenuMusica {
                                 if (!musicasPorCantor.isEmpty()) {
                                     listaMusicas(musicasPorCantor);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "Nenhuma música encontrada para o cantor selecionado.");
+                                    JOptionPane.showMessageDialog(null,
+                                            "Nenhuma música encontrada para o cantor selecionado.");
                                 }
                             }
                         } else {

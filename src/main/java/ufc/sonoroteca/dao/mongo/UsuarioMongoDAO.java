@@ -19,7 +19,9 @@ public interface UsuarioMongoDAO extends UsuarioDAO, MongoRepository<Usuario, St
     Usuario findFirstById(String usuarioID);
 
     // Consulta para encontrar usuários por nome usando Query
-    @Query("{'nome': ?0}")
+    // @Query("{'nome': ?0}")
+    // List<Usuario> findByNome(String nome);
+    @Query("{'nome': { $regex: ?0, $options: 'i' }}")
     List<Usuario> findByNome(String nome);
 
     // Consulta para contar o total de usuários

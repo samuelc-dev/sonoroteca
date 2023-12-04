@@ -44,11 +44,10 @@ public class MenuUsuario {
                 .append("2 - Atualizar por email\n")
                 .append("3 - Remover por email\n")
                 .append("4 - Exibir por email\n")
-                .append("5 - Exibir por id\n")
-                .append("6 - Exibir todos os usuários\n")
-                .append("7 - Encontrar usuário por nome\n")
-                .append("8 - Exibir total de usuários\n")
-                .append("9 - Menu anterior");
+                .append("5 - Exibir todos os usuários\n")
+                .append("6 - Encontrar usuário por nome\n")
+                .append("7 - Exibir total de usuários\n")
+                .append("8 - Menu anterior");
 
         String opcao = "0";
 
@@ -98,20 +97,15 @@ public class MenuUsuario {
                         usuario = usuarioDAO.findFirstByEmail(email);
                         listaUsuario(usuario);
                         break;
-                    case "5": // Exibir por id
-                        String id = JOptionPane.showInputDialog("Id");
-                        usuario = usuarioDAO.findById(id).orElse(null);
-                        listaUsuario(usuario);
-                        break;
-                    case "6": // Exibir todos
+                    case "5": // Exibir todos
                         listaUsuarios(usuarioDAO.findAll());
                         break;
-                    case "7": // Encontrar usuários por nome (Consulta Nativa)
+                    case "6": // Encontrar usuários por nome (Consulta Nativa)
                         String nomeConsultaNativa = JOptionPane.showInputDialog("Nome");
                         List<Usuario> ususarioPorNomeNativa = usuarioDAO.findByNome(nomeConsultaNativa);
                         listaUsuarios(ususarioPorNomeNativa);
                         break;
-                    case "8":
+                    case "7":
                         int totalUser = usuarioDAO.totalUsuarios();
                         if (totalUser != 0) {
                             JOptionPane.showMessageDialog(null, totalUser);
@@ -119,7 +113,7 @@ public class MenuUsuario {
                             JOptionPane.showMessageDialog(null, "Não há usuários cadastrados");
                         }
                         break;
-                    case "9": // Voltar ao menu anterior
+                    case "8": // Voltar ao menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");

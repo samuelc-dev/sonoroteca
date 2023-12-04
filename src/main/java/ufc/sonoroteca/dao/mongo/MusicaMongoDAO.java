@@ -21,6 +21,7 @@ public interface MusicaMongoDAO extends MusicaDAO, MongoRepository<Musica, Strin
 
     List<Musica> findAll();
 
+    // List<Musica> findAllByCantor(String cantor);
     List<Musica> findAllByCantor(String cantor);
 
     @Query("{'_id': { $in: ?0 }}")

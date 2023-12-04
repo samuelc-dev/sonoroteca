@@ -24,5 +24,7 @@ public interface PlaylistDAO {
 
     List<Playlist> findByUsuario(Usuario usuario);
 
-    Playlist findByIdWithMusics(String playlistId);
+    // List<Playlist> findAllCantor();
+
+    // Playlist findByIdWithMusics(String playlistId);
 }
