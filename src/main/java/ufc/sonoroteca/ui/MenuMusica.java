@@ -88,10 +88,8 @@ public class MenuMusica {
                 .append("2 - Atualizar por id\n")
                 .append("3 - Remover por id\n")
                 .append("4 - Exibir por id\n")
-                .append("5 - Exibir todas músicas de determinado gênero\n")
-                .append("6 - Exibir todas as músicas cadastradas\n")
-                .append("7 - Exibir todas músicas de determinado cantor\n")
-                .append("8 - Voltar ao Menu anterior");
+                .append("5 - Exibir todas as músicas cadastradas\n")
+                .append("6 - Voltar ao Menu anterior");
 
         String opcao = "0";
 
@@ -137,7 +135,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Música não encontrada.");
                         }
                         break;
-                    case "5": // Exibir por gênero
+                    case "p": // Exibir por gênero
                         List<String> todosGeneros = musicaDAO.findAllGeneros();
                         if (!todosGeneros.isEmpty()) {
                             genero = escolherGenero(todosGeneros);
@@ -154,7 +152,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhum gênero cadastrado.");
                         }
                         break;
-                    case "6": // Exibir todas as musicas
+                    case "5": // Exibir todas as musicas
                         List<Musica> musicas = musicaDAO.findAll();
                         if (!musicas.isEmpty()) {
                             listaMusicas(musicas);
@@ -162,7 +160,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhuma música encontrada.");
                         }
                         break;
-                    case "7": // Exibir todas músicas de determinado cantor
+                    case "a": // Exibir todas músicas de determinado cantor
                         List<String> todosCantores = musicaDAO.findAllCantores();
                         if (!todosCantores.isEmpty()) {
                             String cantorEscolhido = escolherCantor(todosCantores);
@@ -179,7 +177,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhum cantor cadastrado.");
                         }
                         break;
-                    case "8":
+                    case "6":
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -189,6 +187,6 @@ public class MenuMusica {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while (!opcao.equals("8"));
+        } while (!opcao.equals("6"));
     }
 }

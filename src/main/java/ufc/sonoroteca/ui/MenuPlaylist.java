@@ -64,8 +64,7 @@ public class MenuPlaylist {
                 .append("4 - Exibir por id\n")
                 .append("5 - Exibir por nome\n")
                 .append("6 - Exibir todas as playlists do usuário\n")
-                .append("7 - Exibir as músicas da playlist\n")
-                .append("8 - Menu anterior");
+                .append("7 - Menu anterior");
 
         String opcao = "0";
         do {
@@ -93,10 +92,10 @@ public class MenuPlaylist {
                     case "6": // Exibir todas as playlists do usuario
                         exibirTodasPlaylistsUsuario();
                         break;
-                    case "7": // Exibir as músicas da playlist
+                    case "e": // Exibir as músicas da playlist
                         exibirMusicasDaPlaylist();
                         break;
-                    case "8": // Voltar ao menu anterior
+                    case "7": // Voltar ao menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -106,7 +105,7 @@ public class MenuPlaylist {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while (!opcao.equals("8"));
+        } while (!opcao.equals("7"));
     }
 
     private void exibirPorNome() {
