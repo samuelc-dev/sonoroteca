@@ -1,0 +1,7 @@
+﻿Desenvolvimento de Software para Persistência 2023.1 - Divisão de tarefas.
+Sonoroteca - Beatriz Nascimento e Samuel Costa
+
+DAO gerais e específicos JPA e Mongo: Beatriz Nascimento.
+Configurações de propriedades de conexão com SQLite, Postgresql e MongoDB: Samuel Costa.
+Melhorias nos menus e em algumas consultas: Samuel Costa e Beatriz Nascimento.
+População de banco de dados: Beatriz Nascimento.

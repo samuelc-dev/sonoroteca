@@ -123,6 +123,6 @@ public class MenuUsuario {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while (!opcao.equals("9"));
+        } while (!opcao.equals("8"));
     }
 }

@@ -9,11 +9,11 @@ public interface MusicaDAO {
 
     public Musica findFristById(String musicaID);
 
-    public List<Musica> findAllBygenero(String genero);
+    List<Musica> findAllBygenero(String genero);
 
     List<Musica> findByPlaylistsId(String idPlaylist);
 
-    public List<Musica> findAllBycantor(String cantor);
+    List<Musica> findAllBycantor(String cantor);
 
     public void save(Musica musica);
 
@@ -21,9 +21,9 @@ public interface MusicaDAO {
 
     public Optional<Musica> findById(String id);
 
-    public List<Musica> findAll();
+    List<Musica> findAll();
 
-    public List<String> findAllCantores();
+    List<String> findAllCantores();
 
-    public List<String> findAllGeneros();
+    List<String> findAllGeneros();
 }

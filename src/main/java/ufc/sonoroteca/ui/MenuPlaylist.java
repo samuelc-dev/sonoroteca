@@ -1,6 +1,7 @@
 package ufc.sonoroteca.ui;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -208,6 +209,7 @@ public class MenuPlaylist {
     }
 
     private void adicionarMusicaAPlaylist() {
+
         // Obter músicas disponíveis
         List<Musica> todasMusicas = musicaDAO.findAll();
         // Obter playlists disponíveis
@@ -239,8 +241,18 @@ public class MenuPlaylist {
             Musica musicaSelecionada = (Musica) musicaComboBox.getSelectedItem();
             Playlist playlistSelecionada = (Playlist) playlistComboBox.getSelectedItem();
 
-            // Adicionar a música à playlist
+            // Verificar se a lista de músicas da playlist é nula e inicializá-la se
+            // necessário
             List<Musica> musicas = playlistSelecionada.getMusicas();
+            if (musicas == null) {
+                musicas = new ArrayList<>();
+            }
+
+            // Adicionar a música à lista de músicas da playlist
+
+            // Adicionar a música à playlist
+            // List<Musica> musicas = playlistSelecionada.getMusicas();
+            // musicas.add(musicaSelecionada);
             musicas.add(musicaSelecionada);
             playlistSelecionada.setMusicas(musicas);
             playlistDAO.save(playlistSelecionada);

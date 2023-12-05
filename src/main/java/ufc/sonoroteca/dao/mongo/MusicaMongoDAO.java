@@ -16,7 +16,9 @@ public interface MusicaMongoDAO extends MusicaDAO, MongoRepository<Musica, Strin
 
     List<Musica> findAllByGenero(String genero);
 
-    @Query("{'_id': { $in: ?0 }}")
+    // @Query("{'_id': { $in: ?0 }}")
+    // List<Musica> findByPlaylistId(String idPlaylist);
+    @Query("{'playlists._id': { $in: ?0 }}") // Use o nome do campo correto
     List<Musica> findByPlaylistId(String idPlaylist);
 
     List<Musica> findAll();

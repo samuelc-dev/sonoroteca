@@ -16,7 +16,7 @@ public interface MusicaJPADAO extends MusicaDAO, JpaRepository<Musica, String> {
 
     public List<Musica> findAllBygenero(String genero);
 
-    List<Musica> findByPlaylistsId(String playlistId);
+    public List<Musica> findByPlaylistsId(String playlistId);
 
     public List<Musica> findAll();
 
