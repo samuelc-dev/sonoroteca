@@ -60,10 +60,10 @@ public class MenuPlaylist {
         StringBuilder menu = new StringBuilder("Menu Playlist\n")
                 .append("1 - Criar Playlist\n")
                 .append("2 - Adicionar uma música a playlist\n")
-                .append("3 - Remover playlist por id\n")
-                .append("4 - Exibir por id\n")
-                .append("5 - Exibir por nome\n")
-                .append("6 - Exibir todas as playlists do usuário\n")
+                .append("3 - Remover playlist\n")
+                .append("4 - Exibir por nome\n")
+                .append("5 - Exibir todas as playlists do usuário\n")
+                .append("6 - Exibir as músicas da playlist\n")
                 .append("7 - Menu anterior");
 
         String opcao = "0";
@@ -81,18 +81,13 @@ public class MenuPlaylist {
                     case "3": // Remover por id
                         removerPlaylist();
                         break;
-                    case "4": // Exibir por id
-                        id = JOptionPane.showInputDialog("Id");
-                        Playlist playlist = playlistDAO.findById(id).orElse(null);
-                        listaPlaylist(playlist);
-                        break;
-                    case "5": // Encontrar playlist por nome (Consulta Nativa)
+                    case "4": // Encontrar playlist por nome (Consulta Nativa)
                         exibirPorNome();
                         break;
-                    case "6": // Exibir todas as playlists do usuario
+                    case "5": // Exibir todas as playlists do usuario
                         exibirTodasPlaylistsUsuario();
                         break;
-                    case "e": // Exibir as músicas da playlist
+                    case "6": // Exibir as músicas da playlist
                         exibirMusicasDaPlaylist();
                         break;
                     case "7": // Voltar ao menu anterior
@@ -178,7 +173,7 @@ public class MenuPlaylist {
     }
 
     private void exibirMusicasDaPlaylist() {
-        // Obter playlists disponíveis
+
         List<Playlist> todasPlaylists = playlistDAO.findAll();
 
         if (todasPlaylists.isEmpty()) {
@@ -248,10 +243,6 @@ public class MenuPlaylist {
             }
 
             // Adicionar a música à lista de músicas da playlist
-
-            // Adicionar a música à playlist
-            // List<Musica> musicas = playlistSelecionada.getMusicas();
-            // musicas.add(musicaSelecionada);
             musicas.add(musicaSelecionada);
             playlistSelecionada.setMusicas(musicas);
             playlistDAO.save(playlistSelecionada);
@@ -324,7 +315,7 @@ public class MenuPlaylist {
         JComboBox<Playlist> playlistComboBox = new JComboBox<>(todasPlaylists.toArray(new Playlist[0]));
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
+        panel.setLayout(new GridLayout(2, 2));
         panel.add(new JLabel("Escolha a playlist a ser removida:"));
         panel.add(playlistComboBox);
 
@@ -335,9 +326,16 @@ public class MenuPlaylist {
             // Obter a playlist selecionada
             Playlist playlistSelecionada = (Playlist) playlistComboBox.getSelectedItem();
 
-            // Remover a playlist
-            playlistDAO.delete(playlistSelecionada);
-            JOptionPane.showMessageDialog(null, "Playlist removida com sucesso!");
+            // Confirmar a remoção com o usuário
+            int confirmacao = JOptionPane.showConfirmDialog(null,
+                    "Você tem certeza que deseja remover a playlist \"" + playlistSelecionada.getNomePlay() + "\"?",
+                    "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                // Remover a playlist
+                playlistDAO.delete(playlistSelecionada);
+                JOptionPane.showMessageDialog(null, "Playlist removida com sucesso!");
+            }
         }
     }
 }

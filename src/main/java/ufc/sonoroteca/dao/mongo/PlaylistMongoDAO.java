@@ -15,12 +15,7 @@ public interface PlaylistMongoDAO extends PlaylistDAO, MongoRepository<Playlist,
 
   Playlist findFirstById(String playlistID);
 
-  // @Query("{ 'usuario.id' : ?0 }")
-  // List<Playlist> findByUsuarioId(String idUser);
-
-  // @Query("{ 'nomePlay' : ?0 }")
-  // List<Playlist> findByNomePlay(String nomePlay);
-  @Query("{ 'usuario._id' : ?0 }") // Use o nome do campo correto
+  @Query("{ 'usuario.id' : ?0 }")
   List<Playlist> findByUsuarioId(String idUser);
 
   @Query("{ 'nomePlay' : ?0 }")

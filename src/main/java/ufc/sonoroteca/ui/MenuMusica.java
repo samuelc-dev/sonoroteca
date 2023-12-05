@@ -81,21 +81,39 @@ public class MenuMusica {
         return null;
     }
 
+    // Método para obter todas as músicas e seus IDs
+    private Musica escolherMusica(List<Musica> musicas) {
+        JComboBox<Musica> musicaComboBox = new JComboBox<>(musicas.toArray(new Musica[0]));
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Escolha a música:"));
+        panel.add(musicaComboBox);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Escolha a Música",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            return (Musica) musicaComboBox.getSelectedItem();
+        }
+
+        return null;
+    }
+
     public void menu() {
         System.out.println("Entrou em música");
         StringBuilder menu = new StringBuilder("Menu Música\n")
                 .append("1 - Inserir música\n")
-                .append("2 - Atualizar por id\n")
-                .append("3 - Remover por id\n")
+                .append("2 - Atualizar música\n")
+                .append("3 - Remover música\n")
                 .append("4 - Exibir por id\n")
-                .append("5 - Exibir todas as músicas cadastradas\n")
-                .append("6 - Voltar ao Menu anterior");
+                .append("5 - Exibir todas músicas de determinado gênero\n")
+                .append("6 - Exibir todas as músicas cadastradas\n")
+                .append("7 - Exibir todas músicas de determinado cantor\n")
+                .append("8 - Voltar ao Menu anterior");
 
         String opcao = "0";
 
         do {
             try {
-                String id;
                 Musica musica;
                 String genero;
                 opcao = String.valueOf(JOptionPane.showInputDialog(menu).charAt(0));
@@ -106,36 +124,36 @@ public class MenuMusica {
                         musicaDAO.save(musica);
                         break;
                     case "2": // Atualizar por id
-                        id = JOptionPane.showInputDialog("Digite o ID da música que você quer atualizar: ");
-                        musica = musicaDAO.findById(id).orElse(null);
-                        if (musica != null) {
-                            obterMusica(musica); // Permite atualizar os detalhes da musica
-                            musicaDAO.save(musica);
+                        List<Musica> todasMusicas = musicaDAO.findAll();
+                        Musica musicaParaAtualizar = escolherMusica(todasMusicas);
+                        if (musicaParaAtualizar != null) {
+                            obterMusica(musicaParaAtualizar);
+                            musicaDAO.save(musicaParaAtualizar);
                             JOptionPane.showMessageDialog(null, "Música atualizada com sucesso.");
                         } else {
-                            JOptionPane.showMessageDialog(null, "Música não encontrada.");
+                            JOptionPane.showMessageDialog(null, "Nenhuma música selecionada.");
                         }
                         break;
                     case "3":
-                        id = JOptionPane.showInputDialog("Digite o ID da música que você quer remover");
-                        musica = musicaDAO.findById(id).orElse(null);
-                        if (musica != null) {
-                            musicaDAO.deleteById(id);
+                        List<Musica> todasMusicasRemover = musicaDAO.findAll();
+                        Musica musicaParaRemover = escolherMusica(todasMusicasRemover);
+                        if (musicaParaRemover != null) {
+                            musicaDAO.deleteById(musicaParaRemover.getId());
                         } else {
-                            JOptionPane.showMessageDialog(null, "Música não encontrada.");
+                            JOptionPane.showMessageDialog(null, "Nenhuma música selecionada.");
                         }
                         break;
                     case "4": // Exibir por id
-                        id = JOptionPane.showInputDialog("Digite o ID da música a ser exibida");
-                        musica = musicaDAO.findById(id).orElse(null);
-                        if (musica != null) {
-                            Hibernate.initialize(musica.getPlaylists());
-                            listaMusica(musica);
+                        List<Musica> todasMusicasExibir = musicaDAO.findAll();
+                        Musica musicaParaExibir = escolherMusica(todasMusicasExibir);
+                        if (musicaParaExibir != null) {
+                            Hibernate.initialize(musicaParaExibir.getPlaylists());
+                            listaMusica(musicaParaExibir);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Música não encontrada.");
+                            JOptionPane.showMessageDialog(null, "Nenhuma música selecionada.");
                         }
                         break;
-                    case "p": // Exibir por gênero
+                    case "5": // Exibir por gênero
                         List<String> todosGeneros = musicaDAO.findAllGeneros();
                         if (!todosGeneros.isEmpty()) {
                             genero = escolherGenero(todosGeneros);
@@ -152,7 +170,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhum gênero cadastrado.");
                         }
                         break;
-                    case "5": // Exibir todas as musicas
+                    case "6": // Exibir todas as musicas
                         List<Musica> musicas = musicaDAO.findAll();
                         if (!musicas.isEmpty()) {
                             listaMusicas(musicas);
@@ -160,7 +178,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhuma música encontrada.");
                         }
                         break;
-                    case "a": // Exibir todas músicas de determinado cantor
+                    case "7": // Exibir todas músicas de determinado cantor
                         List<String> todosCantores = musicaDAO.findAllCantores();
                         if (!todosCantores.isEmpty()) {
                             String cantorEscolhido = escolherCantor(todosCantores);
@@ -177,7 +195,7 @@ public class MenuMusica {
                             JOptionPane.showMessageDialog(null, "Nenhum cantor cadastrado.");
                         }
                         break;
-                    case "6":
+                    case "8":
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -187,6 +205,6 @@ public class MenuMusica {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while (!opcao.equals("6"));
+        } while (!opcao.equals("8"));
     }
 }

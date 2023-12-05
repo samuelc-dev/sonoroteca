@@ -26,5 +26,4 @@ public interface MusicaDAO {
     List<String> findAllCantores();
 
     List<String> findAllGeneros();
-
 }
