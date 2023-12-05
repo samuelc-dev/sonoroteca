@@ -7,14 +7,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication(scanBasePackages = "ufc.sonoroteca")
 @EntityScan("ufc.sonoroteca.entity")
-@EnableJpaRepositories("ufc.sonoroteca.dao.jpa")
-// @EnableMongoRepositories("ufc.sonoroteca.dao.mongo")
+// @EnableJpaRepositories("ufc.sonoroteca.dao.jpa")
+@EnableMongoRepositories("ufc.sonoroteca.dao.mongo")
 @Slf4j
 public class SonorotecaApplication implements CommandLineRunner {
 	@Autowired
